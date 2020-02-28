@@ -34,9 +34,7 @@ Ubuntu:
 
 To install the  **edge**  or  **test**  versions of Docker, you need to add the Docker CE stable repository to your system. To do so, run the command:
 
-```output
-#sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-```
+`#sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
 
 A **stable** release is tested more thoroughly and has a slower update cycle. On the other hand, **Edge** release updates are more frequent but aren’t subject to as many stability tests.
 
@@ -203,18 +201,13 @@ This command only temporary disable swap, run this command each time after reboo
 
 Check port status:
 
-```fallback
-#netstat -nltp | grep apiserver
-```
+`#netstat -nltp | grep apiserver`
+
 Adding environment variable in ~/.bash_porfile
 
-```fallback
-#export KUBECONFIG=/etc/kubernetes/admin.conf
-```
+`#export KUBECONFIG=/etc/kubernetes/admin.conf`
 
-```fallback
-#source ~/.bash_profile
-```
+`#source ~/.bash_profile`
 
 #### Step 2: configure flannel
 
