@@ -7,6 +7,8 @@ The Xilinx FPGA device plugin for Kubernetes is a Daemonset deployed on the kube
 
 More info about k8s device plugin, please refer to https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 
+If you want to start from install docker and kubernetes, you can check the full tutorial: https://github.com/yuzhang66/FPGA_as_a_Service/blob/master/k8s-fpga-device-plugin/trunk/full-tutorial.md
+
 ## Prerequisites
 * All FPGAs have the DSA(shell) flashed already.
 * XRT(version is no older than 2018.3) installed on all worker nodes where there are FPGA(s) inserted
