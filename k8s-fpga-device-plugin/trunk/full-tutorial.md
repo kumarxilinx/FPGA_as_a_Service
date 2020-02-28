@@ -215,7 +215,9 @@ Adding environment variable in ~/.bash_porfile
 
 install flannel (for Kubernetes version 1.7+)  
 `#sysctl net.bridge.bridge-nf-call-iptables=1  `
+
 `#kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml`
+
 For other version, please refer [https://github.com/coreos/flannel](https://github.com/coreos/flannel) to do the configuration.
 
 #### Step 3: check the pod
@@ -260,6 +262,7 @@ Here need to download aws FGPA because XRT build will depend on the it.
 #### Step 2: Install XRT
 
 `#yum install xrt_201920.2.3.0_7.7.1908-xrt.rpm`
+
 `#yum install xrt_201920.2.3.0_7.7.1908-aws.rpm`
 
 Please refer to the full instruction on how to build and install XRT:
@@ -401,6 +404,7 @@ Use the yaml files: [aws-accelator-pod.yaml](https://github.com/Xilinx/FPGA_as_a
 #### Step 1: Create accelerator and client pods
 
 `#kubectl create -f aws-accelator-pod.yaml  `
+
 `#kubectl create -f aws-test-client-pod.yaml`
 
 #### Step 2: Check pod status
