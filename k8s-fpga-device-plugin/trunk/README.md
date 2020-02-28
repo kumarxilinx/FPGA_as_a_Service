@@ -138,7 +138,7 @@ spec:
     limits:
       xilinx.com/fpga-xilinx_u200_xdma_201820_1-1535712995: 1
   command: ["/bin/sh"]
-  args: ["-c", "while true; do echo hello; sleep 5;done;"] 
+  args: ["-c", "while true; do echo hello; sleep 5;done;"]
 ```
 
 Deploy the pod now
@@ -173,18 +173,18 @@ Limits:
 #### Run hello world in the pod
 ```
 $kubectl exec -it mypod /bin/bash
-my-pod>source /opt/xilxinx/xrt/setup.sh
+my-pod>source /opt/xilinx/xrt/setup.sh
 my-pod>xbutil scan
 my-pod>cd /tmp/alveo-u200/xilinx_u200_xdma_201830_1/test/
 my-pod>./verify.exe ./verify.xclbin
 ```
 In this test case, the container image (xilinxatg/fgpa-verify:latest) has been pushed to docker hub. It can be publicly accessed
 
-The image contains verify.xclbin for many types of FPGA, please select the type matching the FPGA resource the pod requests. 
+The image contains verify.xclbin for many types of FPGA, please select the type matching the FPGA resource the pod requests.
 
 ## Known issues
 * When there are multiple types of FPGA on one node, the device plugin registers resource for each
-  specific type, but the k8s device plugin framework has issue handling this case. 
+  specific type, but the k8s device plugin framework has issue handling this case.
   Issue report filed tracking this. https://github.com/kubernetes/kubernetes/issues/70350
 
 ## Author
