@@ -97,9 +97,13 @@ Start Docker:
 #sudo systemctl start docker
 ```
 Enable Docker:
+
 `#sudo systemctl enable docker`
+
 Check the status of the service:
+
 `#sudo docker run hello-world`
+
 ## 2. Install Kubernetes
 
 You will install these packages on all of your machines:
@@ -122,6 +126,7 @@ Here is the referred document from Kubernetes:
 `#update-alternatives --set iptables /usr/sbin/iptables-legacy`
 
 `#cat /etc/yum.repos.d/kubernetes.repo`  
+
 ```
 [kubernetes]  
 name=Kubernetes  
@@ -131,17 +136,23 @@ gpgcheck=1
 repo_gpgcheck=1  
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 ```
+
 #### Step 2: Set SELinux in permissive mode (effectively disabling it)
 
 `#sudo setenforce 0  `
+
 `#sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config `
 
 **Note**: Setting SELinux in permissive mode by running setenforce 0 and sed ... effectively disables it. This is required to allow containers to access the host filesystem, which is needed by pod networks for example. You have to do this until SELinux support is improved in the kubelet.  
+
 Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure net.bridge.bridge-nf-call-iptables is set to 1 in your sysctl config, e.g.
 
 `#cat /etc/sysctl.d/k8s.conf  `
+
 net.bridge.bridge-nf-call-iptables = 1  
+
 `#sudo sysctl --system  `
+
 Make sure that the br_netfilter module is loaded before this step. This can be done by running
 
 `#lsmod | grep br_netfilter`
@@ -194,6 +205,7 @@ This command only temporary disable swap, run this command each time after reboo
 #sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 #sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
+
 **Note:** For issues like: "The connection to the server localhost:8080 was refused - did you specify the right host or port?"
 
 Check port status:
@@ -202,6 +214,7 @@ Check port status:
 #netstat -nltp | grep apiserver
 ```
 Adding environment variable in ~/.bash_porfile
+
 ```fallback
 #export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
@@ -214,6 +227,7 @@ Adding environment variable in ~/.bash_porfile
 
 
 install flannel (for Kubernetes version 1.7+)  
+
 `#sysctl net.bridge.bridge-nf-call-iptables=1  `
 
 `#kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml`
@@ -272,11 +286,13 @@ Please refer to the full instruction on how to build and install XRT:
 `#source /opt/xilinx/xrt/setup.sh`
 
 To check the FPGA device on the system:
+
 ```
 #systemctl start mpd
 #systemctl status mpd
 #xbutil scan
 ```
+
 ## 5. Install Kubernetes FPGA Plugin
 
 Here we only have one node (master), and plan to deploy the FPGA plug on this node, to enable this configuration, we need to configure the control plan node.
@@ -295,14 +311,23 @@ By default, your cluster will not schedule Pods on the control-plane node for se
 Step 1: down plugin source
 
 `#git clone  https://github.com/Xilinx/FPGA_as_a_Service.git`
+
 Deploy FPGA device plugin as daemonset:  
+
 `#kubectl create -f ./FPGA_as_a_Service/k8s-fpga-device-plugin/trunk/fpga-device-plugin.yml `
+
 To check the status of daemonset:  
+
 `#kubectl get pod -n kube-system  `
+
 Get node name:  
+
 `#kubectl get node  `
+
 Check FPGA resource in the worker node:  
+
 `#kubectl describe node nodename  `
+
 You should get the FPGA resources name under the pods information.
 
 #### Step 2: Deploy user pod
@@ -316,13 +341,18 @@ You should get the FPGA resources name under the pods information.
 3) modify the resources: set limits same as the that in worker node like "[xilinx.com/fpga-xilinx_aws-vu9p-f1_dynamic_5_0-43981](http://xilinx.com/fpga-xilinx_aws-vu9p-f1_dynamic_5_0-43981): 1". To run "kubectl describe node nodename" to find out the resource.
 
 To check status of the deployed pod:  
+
 `#kubectl get pod`
 
 #### Step 3: Run the test in pod
 after the pod status truns to Running, run hello world in the pod:  
+
 `#kubectl exec -it my-pod /bin/bash  `
+
 `#my-pod>source /opt/xilinx/xrt/setup.sh  `
+
 **Note:**  Need to set the INTERNAL_BUILD=1 if xbutil complain the version not match:  
+
 ```
 #my-pod>export INTERNAL_BUILD=1  
 #my-pod>xbutil scan  
@@ -364,10 +394,13 @@ You can add any number of folders with any contents you need for your server to 
 The **xilinxatg/aws-fpga-verify:20200131**  on docker hub is the base image as mentioned earlier. In this example, the folder  **server**  will be added to an example location **/opt/xilinx/k8s/** in the docker image.
 
 `#touch Dockerfile  `
+
 create a dockerfile under the same folder with server
 
 `#vi Dockerfile  `
+
 To add following two lines into Dockerfile
+
 ```
 FROM xilinxatg/aws-fpga-verify:20200131  
 COPY docker /opt/xilinx/k8s/server
@@ -375,10 +408,15 @@ COPY docker /opt/xilinx/k8s/server
 #### Step 3: Build new docker image
 
 `#docker build -t memo40k/k8s:accelator_pod .  `
+
 It will build a new docker image called  **accelerator_pod**  using the docker file "**Dockerfile**" under the current folder
+
 `#docker images  `
+
 You can run this command to check whether the new images  **accelerator_pod**  was created.
+
 `# docker run -it <imageID>`  
+
 To test the docker image you just created, run the above. You should see the folder  **server** added into the docker image.
 
 #### Step 4: Push new image into docker hub
@@ -412,22 +450,28 @@ Use the yaml files: [aws-accelator-pod.yaml](https://github.com/Xilinx/FPGA_as_a
 After creating the two pods, there will be an accelerator pod with FPGA access, a client pod without FPGA access, an accelerator pod deployment service and a fpga-server-svc network service as shown below.
 
 `#kubectl get pod`
+
 ```
 NAME                          READY      STATUS    RESTARTS    AGE  
 accelator-pod-ff67ff8b8-mwff   1/1       Running       0       22h  
 test-client-pod                1/1       Running       0       23h
 ```
+
 `#kubectl get deployment`
+
 ```
 NAME             READY   UP-TO-DATE   AVAILABLE    AGE  
 accelator-pod     1/1        1            1        22h
 ```
+
 `#kubectl get service`
+
 ```
 NAME               TYPE       CLUSTER-IP     EXTERNAL-IP    PORT(S)       AGE  
 fpga-server-svc  NodePort     10.96.59.3        <none>   8010:31600/TCP   22h  
 kubernetes       ClusterIP     10.96.0.1        <none>      443/TCP       14d
 ```
+
 #### Step 3: Run hello world in client pod
 
 `#kubectl exec test-client-pod python /opt/xilinx/k8s/client/client.py`
