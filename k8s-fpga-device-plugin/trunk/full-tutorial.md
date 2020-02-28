@@ -423,7 +423,6 @@ To test the docker image you just created, run the above. You should see the fol
 
 `#docker push memo40k/k8s:accelator_podk8`
 
-You are all set.
 
 
 
