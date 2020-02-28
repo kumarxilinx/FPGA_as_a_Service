@@ -46,9 +46,7 @@ A **stable** release is tested more thoroughly and has a slower update cycle. On
 
 With everything set, you can finally move on to installing Docker on CentOS 7 by running:
 
-```output
-#sudo yum install docker
-```
+`#sudo yum install docker`
 
 The system should begin the installation. Once it finishes, it will notify you the installation is complete and which version of Docker is now running on your system.
 
@@ -62,9 +60,7 @@ To start the service, enable it to run at startup. Run the following commands in
 
 Start Docker:
 
-```output
-#sudo systemctl start docker
-```
+`#sudo systemctl start docker`
 
 Enable Docker:
 
@@ -82,9 +78,7 @@ Check the status of the service:
 
 #### Step 2: Install Docker
 
-```output
-#sudo apt-get install docker.io
-```
+`#sudo apt-get install docker.io`
 
 #### Step 3: Manage Docker Service
 
@@ -93,9 +87,8 @@ Although you have installed Docker on Ubuntu, the service is still not running.
 To start the service, enable it to run at startup. Run the following commands in the order listed below.
 
 Start Docker:
-```output
-#sudo systemctl start docker
-```
+`#sudo systemctl start docker`
+
 Enable Docker:
 
 `#sudo systemctl enable docker`
@@ -301,9 +294,7 @@ Here we only have one node (master), and plan to deploy the FPGA plug on this no
 
 By default, your cluster will not schedule Pods on the control-plane node for security reasons. If you want to be able to schedule Pods on the control-plane node, e.g. for a single-machine Kubernetes cluster for development, run:
 
-```
-#kubectl taint nodes --all node-role.kubernetes.io/master-
-```
+`#kubectl taint nodes --all node-role.kubernetes.io/master-`
 
 ### Install Kubernetes FPGA plugin
 
