@@ -9,6 +9,9 @@ More info about k8s device plugin, please refer to https://kubernetes.io/docs/co
 
 If you want to start from install docker and kubernetes, you can follow the full tutorial: https://github.com/yuzhang66/FPGA_as_a_Service/blob/master/k8s-fpga-device-plugin/trunk/full-tutorial.md
 
+How to build and test new docker image and test with k8s-fpga-device-plugin:
+https://github.com/yuzhang66/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk/docker
+
 ## Prerequisites
 * All FPGAs have the DSA(shell) flashed already.
 * XRT(version is no older than 2018.3) installed on all worker nodes where there are FPGA(s) inserted
