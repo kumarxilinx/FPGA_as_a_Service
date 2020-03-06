@@ -10,7 +10,7 @@ For  more detailed info about use docker and k8s:
 |--|--|
 |More info about k8s device plugin |[Link](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/ "Link")|
 | Full tutorial start from install docker and kubernetes | [Link-temp](https://github.com/yuzhang66/FPGA_as_a_Service/blob/master/k8s-fpga-device-plugin/trunk/full-tutorial.md "Link")
-|Build and test new docker image ith k8s-fpga-device-plugin:| [Link-temp](https://github.com/yuzhang66/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk/docker "Link")|
+|Build and test new docker image with k8s-fpga-device-plugin| [Link-temp](https://github.com/yuzhang66/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk/docker "Link")|
 |AWS Kubernetes FPGA Plugin| [Link-temp](https://github.com/yuzhang66/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk/aws)
 
 ## Prerequisites
